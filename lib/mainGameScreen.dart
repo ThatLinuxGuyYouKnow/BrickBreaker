@@ -8,11 +8,7 @@ class GameScreen extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return SingleChildScrollView(
-      child: Container(
-          color: Colors.white,
-          child: Column(
-            children: [SizedBox(height: screenHeight * 3), PaddleHandler()],
-          )),
+      child: Container(color: Colors.white, child: PaddleHandler()),
     );
   }
 }
