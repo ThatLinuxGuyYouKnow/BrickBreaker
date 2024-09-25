@@ -1,3 +1,4 @@
+import 'package:brickbreaker/game-assets/paddleHandler.dart';
 import 'package:flutter/material.dart';
 
 class GameScreen extends StatelessWidget {
@@ -6,10 +7,12 @@ class GameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-        color: Colors.white,
-        child: Column(
-          children: [SizedBox(height: screenHeight * 5)],
-        ));
+    return SingleChildScrollView(
+      child: Container(
+          color: Colors.white,
+          child: Column(
+            children: [SizedBox(height: screenHeight * 3), PaddleHandler()],
+          )),
+    );
   }
 }
