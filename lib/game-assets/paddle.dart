@@ -1,36 +1,31 @@
 import 'package:flutter/material.dart';
 
-class Paddle extends StatefulWidget {
-  Paddle({super.key, this.alignmentX = 0.0});
-  double alignmentX;
+class Paddle extends StatelessWidget {
+  final double initialAlignment;
+  final Function(double) onChanged;
 
-  @override
-  State<Paddle> createState() => _PaddleState();
-}
-
-class _PaddleState extends State<Paddle> {
-  double Xalignment = 0.0;
+  const Paddle(
+      {Key? key, required this.initialAlignment, required this.onChanged})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-
-    return GestureDetector(
-      onHorizontalDragUpdate: (details) {
-        setState(() {
-          // Convert drag position into alignment value between -1.0 and 1.0
-          Xalignment = (details.globalPosition.dx / screenWidth) * 2 - 1;
-          print('X alignment is ' + Xalignment.toString());
-        });
-      },
-      child: Align(
-        alignment: Alignment(Xalignment, 1.0),
+    return Align(
+      alignment: Alignment(initialAlignment, 0.9),
+      child: GestureDetector(
+        onHorizontalDragUpdate: (details) {
+          final screenWidth = MediaQuery.of(context).size.width;
+          final newAlignment =
+              (details.globalPosition.dx / screenWidth) * 2 - 1;
+          onChanged(newAlignment.clamp(-1.0, 1.0));
+        },
         child: Container(
-          height: screenHeight * .04,
-          width: screenWidth * 0.2,
+          height: 20,
+          width: 80,
           decoration: BoxDecoration(
-              color: Colors.blue, borderRadius: BorderRadius.circular(2)),
+            color: Colors.blue,
+            borderRadius: BorderRadius.circular(10),
+          ),
         ),
       ),
     );
