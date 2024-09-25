@@ -13,12 +13,14 @@ class _PaddleHandlerState extends State<PaddleHandler> {
       onHorizontalDragEnd: (details) {
         print('getting hit');
         setState(() {
-          details.localPosition.dx;
+          paddlePositon = details.localPosition.dx;
         });
       },
       child: Row(
         children: [
-          Container(alignment: Alignment(paddlePositon, 100.0), child: Paddle())
+          Paddle(
+            alignmentX: paddlePositon,
+          )
         ],
       ),
     );
