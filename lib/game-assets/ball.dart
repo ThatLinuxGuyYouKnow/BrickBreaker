@@ -13,7 +13,6 @@ class Ball extends StatefulWidget {
       required this.velocity,
       required this.onVelocityChange})
       : super(key: key);
-
   @override
   _BallState createState() => _BallState(); // Added this method
 }
