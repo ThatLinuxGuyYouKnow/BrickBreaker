@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 class Paddle extends StatelessWidget {
   final double initialAlignment;
   final Function(double) onChanged;
+  final Function(Offset) onPositionChanged;
 
   const Paddle(
-      {Key? key, required this.initialAlignment, required this.onChanged})
+      {Key? key,
+      required this.initialAlignment,
+      required this.onChanged,
+      required this.onPositionChanged})
       : super(key: key);
 
   @override
@@ -18,6 +22,7 @@ class Paddle extends StatelessWidget {
           final newAlignment =
               (details.globalPosition.dx / screenWidth) * 2 - 1;
           onChanged(newAlignment.clamp(-1.0, 1.0));
+          onPositionChanged(details.globalPosition);
         },
         child: Container(
           height: 20,
