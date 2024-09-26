@@ -20,36 +20,29 @@ class Ball extends StatefulWidget {
 
 class _BallState extends State<Ball> {
   late Offset position;
-  late Offset velocity;
-  late Size screenSize;
 
   @override
   void initState() {
     super.initState();
     position = const Offset(0, 0);
-    velocity = widget.velocity;
-
-    // Cache the screen size
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      screenSize = MediaQuery.of(context).size;
-      Timer.periodic(const Duration(milliseconds: 16), _updateBall);
-    });
+    Timer.periodic(const Duration(milliseconds: 16), _updateBall);
   }
 
   void _updateBall(Timer timer) {
     setState(() {
-      position += velocity;
+      position += widget.velocity;
       widget.onUpdate(position);
 
       // Check for wall collisions
-      if (position.dx <= 0 || position.dx >= screenSize.width - Ball.ballSize) {
-        velocity = Offset(-velocity.dx, velocity.dy);
-        widget.onVelocityChange(velocity);
+      if (position.dx <= 0 ||
+          position.dx >= MediaQuery.of(context).size.width - Ball.ballSize) {
+        widget
+            .onVelocityChange(Offset(-widget.velocity.dx, widget.velocity.dy));
       }
       if (position.dy <= 0 ||
-          position.dy >= screenSize.height - Ball.ballSize) {
-        velocity = Offset(velocity.dx, -velocity.dy);
-        widget.onVelocityChange(velocity);
+          position.dy >= MediaQuery.of(context).size.height - Ball.ballSize) {
+        widget
+            .onVelocityChange(Offset(widget.velocity.dx, -widget.velocity.dy));
       }
     });
   }
