@@ -21,9 +21,12 @@ class Paddle extends StatelessWidget {
         // Convert alignment into actual position in pixels
         final paddleX = (initialAlignment + 1) / 2 * screenWidth -
             40; // 40 is half paddle width
+        final paddleY = constraints.maxHeight * 0.9;
 
-        // Update the paddle position based on its alignment
-        onPositionChanged(Offset(paddleX, constraints.maxHeight * 0.9));
+        // Ensure paddle position update happens after build phase
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          onPositionChanged(Offset(paddleX, paddleY));
+        });
 
         return Align(
           alignment: Alignment(initialAlignment, 0.9),
