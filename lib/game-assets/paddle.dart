@@ -1,36 +1,24 @@
 import 'package:flutter/material.dart';
 
 class Paddle extends StatelessWidget {
-  final double initialAlignment;
-  final Function(double) onChanged;
-  final Function(Offset) onPositionChanged;
+  final double paddleX;
 
-  const Paddle(
-      {Key? key,
-      required this.initialAlignment,
-      required this.onChanged,
-      required this.onPositionChanged})
-      : super(key: key);
+  const Paddle({Key? key, required this.paddleX}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment(initialAlignment, 0.9),
-      child: GestureDetector(
-        onHorizontalDragUpdate: (details) {
-          final screenWidth = MediaQuery.of(context).size.width;
-          final newAlignment =
-              (details.globalPosition.dx / screenWidth) * 2 - 1;
-          onChanged(newAlignment.clamp(-1.0, 1.0));
-          onPositionChanged(details.globalPosition);
-        },
-        child: Container(
-          height: 20,
-          width: 80,
-          decoration: BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.circular(10),
-          ),
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return Positioned(
+      left: paddleX,
+      bottom: 20,
+      child: Container(
+        width: screenWidth * 0.2,
+        height: screenHeight * 0.03,
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
     );
