@@ -26,6 +26,7 @@ class GameManager {
   });
 
   void startGame() {
+    print('game started');
     gameLoop = Timer.periodic(const Duration(milliseconds: 16), _update);
   }
 

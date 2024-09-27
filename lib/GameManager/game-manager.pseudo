@@ -1,0 +1,7 @@
+GameManger{
+    moveBall(){
+        Timer.periodic(every 5miliseconds){
+            Move Ball (+1 to the y, and + or - desired left direction)
+        }
+    }
+}
