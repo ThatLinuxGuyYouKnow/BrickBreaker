@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'dart:async';
+import 'package:brickbreaker/GameManager/game-manger.dart';
 import 'package:brickbreaker/game-assets/ball.dart';
 import 'package:brickbreaker/game-assets/paddle.dart';
+import 'package:flutter/material.dart';
 
 class BrickBreakerGame extends StatefulWidget {
   const BrickBreakerGame({Key? key}) : super(key: key);
@@ -11,79 +11,46 @@ class BrickBreakerGame extends StatefulWidget {
 }
 
 class _BrickBreakerGameState extends State<BrickBreakerGame> {
-  late Offset ballPosition;
-  late Offset ballVelocity;
-  double paddleX = 0.0;
-  Offset paddlePosition = Offset.zero;
+  late GameManager gameManager;
+  Offset ballPosition = const Offset(100, 100);
+  double paddleX = 0;
 
   @override
   void initState() {
     super.initState();
-    ballPosition = const Offset(0, 0);
-    ballVelocity = const Offset(3, 3); // Initial velocity
-  }
-
-  void _updateBallPosition(Offset position) {
-    setState(() {
-      ballPosition = position;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final size = MediaQuery.of(context).size;
+      gameManager = GameManager(
+        updateBallPosition: (position) =>
+            setState(() => ballPosition = position),
+        updatePaddlePosition: (x) => setState(() => paddleX = x),
+        screenSize: size,
+      );
+      gameManager.startGame();
     });
-    _checkCollision();
-  }
-
-  void _updatePaddlePosition(Offset position) {
-    setState(() {
-      paddlePosition = position;
-    });
-  }
-
-  void _checkCollision() {
-    final paddleRect = Rect.fromLTWH(
-        paddlePosition.dx,
-        paddlePosition.dy,
-        80, // Paddle width
-        20 // Paddle height
-        );
-
-    final ballRect = Rect.fromLTWH(
-        ballPosition.dx, ballPosition.dy, Ball.ballSize, Ball.ballSize);
-
-    if (ballRect.overlaps(paddleRect)) {
-      // Collision detected!
-      print('Collision detected!');
-      _changeBallDirection(paddleRect);
-    }
-  }
-
-  void _changeBallDirection(Rect paddleRect) {
-    // Reverse the vertical direction
-    ballVelocity = Offset(ballVelocity.dx, -ballVelocity.dy);
-
-    // Add some horizontal variation based on where the ball hit the paddle
-    final hitPoint = (ballPosition.dx - paddleRect.left) / paddleRect.width;
-    final angleChange = (hitPoint - 0.5) * 2; // -1 to 1
-    ballVelocity = Offset(ballVelocity.dx + angleChange, ballVelocity.dy);
-
-    // Normalize the velocity to maintain constant speed
-    final speed = ballVelocity.distance;
-    ballVelocity = ballVelocity / ballVelocity.distance * speed;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Ball(
-            onUpdate: _updateBallPosition,
-            velocity: ballVelocity,
-            onVelocityChange: (newVelocity) => ballVelocity = newVelocity,
+      body: GestureDetector(
+        onHorizontalDragUpdate: (details) {
+          if (gameManager != null) {
+            final screenWidth = MediaQuery.of(context).size.width;
+            final newX = details.globalPosition.dx - (screenWidth * 0.1);
+            gameManager
+                .updatePaddle(newX.clamp(0, screenWidth - (screenWidth * 0.2)));
+          }
+        },
+        child: Container(
+          color: Colors.black,
+          child: Stack(
+            children: [
+              Ball(ballX: ballPosition.dx, ballY: ballPosition.dy),
+              Paddle(paddleX: paddleX),
+            ],
           ),
-          Paddle(
-            initialAlignment: paddleX,
-            onChanged: (x) => setState(() => paddleX = x),
-            onPositionChanged: _updatePaddlePosition,
-          ),
-        ],
+        ),
       ),
     );
   }
