@@ -1,27 +1,38 @@
 import 'package:flutter/material.dart';
 
 class GameManager {
-  final double paddleX;
-  Offset _ballPosition = const Offset(100, 100); // Ball position
+  final context;
+  double _paddleX;
+  Offset _ballPosition = const Offset(100, 100);
 
-  // Constructor initializes paddleX and ball position
-  GameManager(this.paddleX);
+  GameManager(this._paddleX, this.context);
 
-  // Getters to access ballX and ballY
+  double get paddleX => _paddleX;
   double get ballX => _ballPosition.dx;
   double get ballY => _ballPosition.dy;
 
-  void moveBall(double ballXIncrement, double ballYIncrement) {
-    _ballPosition = _ballPosition.translate(ballXIncrement, ballYIncrement);
+  void updatePaddlePosition(double newPaddleX) {
+    _paddleX = newPaddleX;
+    checkForBallXPaddleCollision();
   }
 
-  // Setter to manually update the ball's position
+  void moveBall(double ballXIncrement, double ballYIncrement) {
+    _ballPosition = _ballPosition.translate(ballXIncrement, ballYIncrement);
+    checkForBallXPaddleCollision();
+  }
+
   set ballPosition(Offset newPosition) {
     _ballPosition = newPosition;
   }
 
-  // Getter to access the full ball position as an Offset
   Offset get ballPosition => _ballPosition;
 
-  checkForBallXPaddleColission() {}
+  void checkForBallXPaddleCollision() {
+    if ((ballX >= paddleX - 10 && ballX <= paddleX + 10) &&
+        (ballY >= MediaQuery.of(context).size.height - 40)) {
+      // Adjust these values based on your paddle size and position
+      print('collision detected');
+      // Add collision response logic here
+    }
+  }
 }
