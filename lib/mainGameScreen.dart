@@ -12,7 +12,7 @@ class BrickBreakerGame extends StatefulWidget {
 
 class _BrickBreakerGameState extends State<BrickBreakerGame> {
   late GameManager gameManager;
-  Offset ballPosition = const Offset(100, 100);
+
   double paddleX = 0;
 
   @override
@@ -23,7 +23,7 @@ class _BrickBreakerGameState extends State<BrickBreakerGame> {
           color: Colors.black,
           child: Stack(
             children: [
-              Ball(ballX: ballPosition.dx, ballY: ballPosition.dy),
+              Ball(ballX: gameManager.ballX, ballY: gameManager.ballY),
               Paddle(paddleX: paddleX),
             ],
           ),
