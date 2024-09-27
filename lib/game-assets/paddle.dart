@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
 
 class Paddle extends StatefulWidget {
-  const Paddle({super.key});
+  final Function(double) onPaddlePositionChanged;
+
+  const Paddle({super.key, required this.onPaddlePositionChanged});
 
   @override
   State<Paddle> createState() => _PaddleState();
 }
 
 class _PaddleState extends State<Paddle> {
+  double paddleX = 0.0;
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    double paddleX = 0.0;
+
     return GestureDetector(
       onHorizontalDragUpdate: (details) => setState(() {
+        // Update paddle position
         paddleX = details.globalPosition.dx;
+
+        // Notify the parent widget or external class
+        widget.onPaddlePositionChanged(paddleX);
       }),
       child: Positioned(
         left: paddleX,

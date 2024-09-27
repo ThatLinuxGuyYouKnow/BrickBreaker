@@ -24,7 +24,7 @@ class _BrickBreakerGameState extends State<BrickBreakerGame> {
           child: Stack(
             children: [
               Ball(ballX: gameManager.ballX, ballY: gameManager.ballY),
-              Paddle(paddleX: paddleX),
+              Paddle(),
             ],
           ),
         ),

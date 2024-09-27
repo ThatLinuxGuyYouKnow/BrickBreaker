@@ -22,4 +22,6 @@ class GameManager {
 
   // Getter to access the full ball position as an Offset
   Offset get ballPosition => _ballPosition;
+
+  checkForBallXPaddleColission() {}
 }
