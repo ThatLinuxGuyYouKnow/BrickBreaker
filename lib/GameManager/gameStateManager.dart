@@ -1,3 +1,5 @@
+import 'package:brickbreaker/GameManager/game-manger.dart';
+import 'package:brickbreaker/mainGameScreen.dart';
 import 'package:flutter/material.dart';
 
 class GameStateManager extends StatelessWidget {
@@ -14,9 +16,16 @@ class GameStateManager extends StatelessWidget {
           color: Colors.white,
           child: Center(
               child: Column(
-            children: [],
+            children: [
+              Text('S T A R T'),
+              SizedBox(
+                height: screenHeight * .002,
+              ),
+              Text('G A M E')
+            ],
           )),
-        )
+        ),
+        BrickBreakerGame()
       ],
     );
   }
