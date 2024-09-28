@@ -1,6 +1,3 @@
-import 'package:brickbreaker/GameManager/game-manger.dart';
-import 'package:brickbreaker/game-assets/ball.dart';
-import 'package:brickbreaker/game-assets/paddle.dart';
 import 'package:flutter/material.dart';
 
 class BrickBreakerGame extends StatefulWidget {
@@ -16,8 +13,7 @@ class _BrickBreakerGameState extends State<BrickBreakerGame> {
   @override
   void initState() {
     super.initState();
-    gameManager =
-        GameManager(0.0, context); // Initialize with default paddle position
+    gameManager = GameManager(0.0, context);
   }
 
   void _updatePaddlePosition(double newPosition) {
@@ -28,24 +24,48 @@ class _BrickBreakerGameState extends State<BrickBreakerGame> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Stack(
-          children: [
-            Positioned(
-              left: gameManager.ballX,
-              top: gameManager.ballY,
-              child: Ball(ballX: gameManager.ballX, ballY: gameManager.ballY),
-            ),
-            Positioned(
-              left: gameManager.paddleX,
-              bottom: 20,
-              child: Paddle(onPaddlePositionChanged: _updatePaddlePosition),
-            ),
-            // Add other game elements here (bricks, score, etc.)
-          ],
-        );
-      },
+    return Scaffold(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Stack(
+            children: [
+              Positioned(
+                left: gameManager.ballX,
+                top: gameManager.ballY,
+                child: Ball(ballX: gameManager.ballX, ballY: gameManager.ballY),
+              ),
+              Positioned(
+                left: gameManager.paddleX,
+                bottom: 20,
+                child: Paddle(onPaddlePositionChanged: _updatePaddlePosition),
+              ),
+              Positioned(
+                top: 20,
+                left: 20,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (gameManager.isGameRunning) {
+                      gameManager.stopGame();
+                    } else {
+                      gameManager.startGame();
+                    }
+                    setState(() {});
+                  },
+                  child: Text(
+                      gameManager.isGameRunning ? 'Stop Game' : 'Start Game'),
+                ),
+              ),
+              // Add other game elements here (bricks, score, etc.)
+            ],
+          );
+        },
+      ),
     );
+  }
+
+  @override
+  void dispose() {
+    gameManager.stopGame();
+    super.dispose();
   }
 }
