@@ -41,7 +41,11 @@ class _GameStateManagerState extends State<GameStateManager> {
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('G A M E'),
+                        Text(
+                          'G A M E',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
                         SizedBox(height: screenHeight * .002),
                         Text('O V E R'),
                         ElevatedButton(
@@ -56,7 +60,11 @@ class _GameStateManagerState extends State<GameStateManager> {
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('S T A R T'),
+                            Text(
+                              'S T A R T',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 14),
+                            ),
                             SizedBox(height: screenHeight * .002),
                             Text('G A M E'),
                             ElevatedButton(

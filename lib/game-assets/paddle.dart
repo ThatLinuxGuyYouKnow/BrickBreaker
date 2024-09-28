@@ -13,7 +13,7 @@ class Paddle extends StatelessWidget {
         onPaddlePositionChanged(details.globalPosition.dx);
       },
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.2,
+        width: MediaQuery.of(context).size.width * 0.1,
         height: MediaQuery.of(context).size.height * 0.03,
         decoration: BoxDecoration(
           color: Colors.blue,
