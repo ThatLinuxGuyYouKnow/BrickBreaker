@@ -1,3 +1,6 @@
+import 'package:brickbreaker/GameManager/game-manger.dart';
+import 'package:brickbreaker/game-assets/ball.dart';
+import 'package:brickbreaker/game-assets/paddle.dart';
 import 'package:flutter/material.dart';
 
 class BrickBreakerGame extends StatefulWidget {
