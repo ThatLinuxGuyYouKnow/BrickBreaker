@@ -4,8 +4,20 @@ class GameStateManager extends StatelessWidget {
   GameStateManager({super.key});
 
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Stack(
-      children: [Container()],
+      children: [
+        Container(
+          height: screenHeight,
+          width: screenWidth,
+          color: Colors.white,
+          child: Center(
+              child: Column(
+            children: [],
+          )),
+        )
+      ],
     );
   }
 }
