@@ -7,30 +7,45 @@ class BrickBreakerGame extends StatefulWidget {
   const BrickBreakerGame({Key? key}) : super(key: key);
 
   @override
-  State<BrickBreakerGame> createState() => _BrickBreakerGameState();
+  _BrickBreakerGameState createState() => _BrickBreakerGameState();
 }
 
 class _BrickBreakerGameState extends State<BrickBreakerGame> {
   late GameManager gameManager;
 
-  double paddleX = 0;
+  @override
+  void initState() {
+    super.initState();
+    gameManager =
+        GameManager(0.0, context); // Initialize with default paddle position
+  }
+
+  void _updatePaddlePosition(double newPosition) {
+    setState(() {
+      gameManager.updatePaddlePosition(newPosition);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        child: Container(
-          color: Colors.black,
-          child: Stack(
-            children: [
-              Ball(ballX: gameManager.ballX, ballY: gameManager.ballY),
-              Paddle(
-                onPaddlePositionChanged: (double) {},
-              ),
-            ],
-          ),
-        ),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Stack(
+          children: [
+            Positioned(
+              left: gameManager.ballX,
+              top: gameManager.ballY,
+              child: Ball(ballX: gameManager.ballX, ballY: gameManager.ballY),
+            ),
+            Positioned(
+              left: gameManager.paddleX,
+              bottom: 20,
+              child: Paddle(onPaddlePositionChanged: _updatePaddlePosition),
+            ),
+            // Add other game elements here (bricks, score, etc.)
+          ],
+        );
+      },
     );
   }
 }
