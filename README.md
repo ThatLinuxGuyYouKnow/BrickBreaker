@@ -6,4 +6,3 @@ Runs on Web and Android(tested)
 
 ![Ball Speed](https://img.shields.io/badge/Ball%20Speed-Medium-orange)
 
-
