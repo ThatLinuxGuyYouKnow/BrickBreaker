@@ -1,6 +1,6 @@
 # 🧱 Brick Breaker
 
-A nostalgic recreation of the classic Brick Breaker game from BlackBerry devices, reimagined with Flutter.
+A humble recreation of the classic Brick Breaker game from BlackBerry devices, built with Flutter
 
 ![Collision Logic](https://img.shields.io/badge/Collision-Native%20Logic-blue)
 ![Platform](https://img.shields.io/badge/Platform-Web%20%26%20Android-green)
@@ -8,7 +8,7 @@ A nostalgic recreation of the classic Brick Breaker game from BlackBerry devices
 
 ## 🎮 Game Overview
 
-Relive the retro gaming experience with this faithful recreation of the iconic Brick Breaker game. Navigate the paddle, bounce the ball, and break bricks - just like you remember!
+Relive the retro gaming experience with this faithful recreation of the iconic Brick Breaker game. Navigate the paddle, bounce the ball, and break bricks[TODO] - just like you remember!
 
 ## ✨ Key Features
 
