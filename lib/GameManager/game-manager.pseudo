@@ -4,4 +4,24 @@ GameManger{
             Move Ball (+1 to the y, and + or - desired left direction)
         }
     }
-}
+}In-Depth Explanations (in comments):
+
+    moveBall():
+        This function moves the ball by incrementing its current position (_ballPosition) by ballXIncrement and ballYIncrement.
+        It uses translate to modify the Offset (the ball's position) by adding the specified values to the current X and Y coordinates.
+
+    checkWallCollisions():
+        This function checks if the ball hits the screen's left, right, or top edges.
+        If the ball's X position (_ballPosition.dx) is less than or equal to 0 (left wall) or greater than or equal to the screen width (right wall), it inverts the horizontal speed (_ballSpeedX = -_ballSpeedX). This causes the ball to bounce off the wall.
+        If the ball's Y position (_ballPosition.dy) is less than or equal to 0 (top wall), it inverts the vertical speed (_ballSpeedY = -_ballSpeedY), making the ball bounce downwards.
+        If the ball reaches the bottom of the screen, it triggers stopGame(), signaling that the player has lost.
+
+    checkForBallXPaddleCollision():
+        This function checks if the ball collides with the paddle.
+        The paddle's position and size are calculated using the screen's width and height.
+        A collision occurs when:
+            The ball's Y position is within the vertical range of the paddle (_ballPosition.dy is between paddleTop and paddleTop + paddleHeight).
+            The ball's X position is within the horizontal range of the paddle (_ballPosition.dx is between _paddleX and _paddleX + paddleWidth).
+        When a collision is detected, the vertical speed (_ballSpeedY) is inverted to make the ball bounce upwards.
+        The horizontal speed is also adjusted based on where the ball hit the paddle. If the ball hits the paddle's edge, the horizontal speed increases, creating more variation in the ball's trajectory.
+        The ball's horizontal speed is clamped between -8 and 8 to ensure it doesn't move too fast horizontally.

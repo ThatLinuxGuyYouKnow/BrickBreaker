@@ -14,7 +14,7 @@ class Paddle extends StatelessWidget {
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.1,
-        height: MediaQuery.of(context).size.height * 0.03,
+        height: MediaQuery.of(context).size.height * 0.016,
         decoration: BoxDecoration(
           color: Colors.blue,
           borderRadius: BorderRadius.circular(10),

@@ -5,7 +5,9 @@ import 'package:brickbreaker/game-assets/paddle.dart';
 import 'package:brickbreaker/GameManager/gameStateEnum.dart';
 
 class BrickBreakerGame extends StatefulWidget {
-  const BrickBreakerGame({Key? key}) : super(key: key);
+  final GameManager gameManager;
+  const BrickBreakerGame({Key? key, required this.gameManager})
+      : super(key: key);
 
   @override
   _BrickBreakerGameState createState() => _BrickBreakerGameState();
@@ -17,7 +19,7 @@ class _BrickBreakerGameState extends State<BrickBreakerGame> {
   @override
   void initState() {
     super.initState();
-    gameManager = GameManager(0.0, context);
+    gameManager = widget.gameManager;
     gameManager.setUpdateCallback(() {
       if (mounted) {
         setState(() {});
@@ -66,7 +68,7 @@ class _BrickBreakerGameState extends State<BrickBreakerGame> {
 
   @override
   void dispose() {
-    gameManager.stopGame();
+    gameManager.dispose();
     super.dispose();
   }
 }

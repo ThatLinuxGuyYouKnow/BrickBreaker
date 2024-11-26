@@ -41,11 +41,7 @@ class _GameStateManagerState extends State<GameStateManager> {
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          'G A M E',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 14),
-                        ),
+                        Text('G A M E'),
                         SizedBox(height: screenHeight * .002),
                         Text('O V E R'),
                         ElevatedButton(
@@ -60,11 +56,7 @@ class _GameStateManagerState extends State<GameStateManager> {
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              'S T A R T',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 14),
-                            ),
+                            Text('S T A R T'),
                             SizedBox(height: screenHeight * .002),
                             Text('G A M E'),
                             ElevatedButton(
@@ -78,9 +70,16 @@ class _GameStateManagerState extends State<GameStateManager> {
                       : SizedBox.shrink(),
             ),
           ),
-          if (gameManager.gameState == GameState.hasStarted) BrickBreakerGame(),
+          if (gameManager.gameState == GameState.hasStarted)
+            BrickBreakerGame(gameManager: gameManager),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    gameManager.dispose();
+    super.dispose();
   }
 }

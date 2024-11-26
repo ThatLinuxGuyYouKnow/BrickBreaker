@@ -6,8 +6,8 @@ class Ball extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 10, // Adjust size as needed
-      height: 10,
+      width: 40, // Adjust size as needed
+      height: 40,
       decoration: BoxDecoration(
         color: Colors.red,
         shape: BoxShape.circle,
